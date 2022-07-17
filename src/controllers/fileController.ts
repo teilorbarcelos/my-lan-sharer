@@ -1,9 +1,14 @@
 import { Request, Response } from 'express'
 import { FileService } from '../services/fileService'
 
+interface FileProps {
+  name: string
+  file: string
+}
+
 class FileController {
   async handleUpload(request: Request, response: Response) {
-    const { name, file } = request.body
+    const { name, file }: FileProps = request.body
 
     const service = new FileService()
 
@@ -17,7 +22,7 @@ class FileController {
   }
 
   async handleDownload(request: Request, response: Response) {
-    const { name } = request.body
+    const { name }: FileProps = request.body
 
     const service = new FileService()
 
@@ -31,7 +36,7 @@ class FileController {
   }
 
   async handleDelete(request: Request, response: Response) {
-    const { name } = request.body
+    const { name }: FileProps = request.body
 
     const service = new FileService()
 
