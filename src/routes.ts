@@ -13,7 +13,8 @@ router.get('/', (request: Request, response: Response) => {
 
 // File routes
 router.post('/upload', new FileController().handleUpload)
-router.post('/download', new FileController().handleDownload)
-router.post('/delete', new FileController().handleDelete)
+router.get('/download', new FileController().handleDownload)
+router.get('/files', new FileController().handleList)
+router.delete('/delete', new FileController().handleDelete)
 
 export { router }

@@ -3,7 +3,7 @@ import { FileService } from '../services/fileService'
 
 interface FileProps {
   name: string
-  file: string
+  file?: string
 }
 
 class FileController {
@@ -22,12 +22,12 @@ class FileController {
   }
 
   async handleDownload(request: Request, response: Response) {
-    const { name }: FileProps = request.body
+    const { fileName } = request.query
 
     const service = new FileService()
 
     try {
-      await service.download(name, response)
+      await service.download(String(fileName), response)
 
       return response
     } catch (error) {
@@ -35,15 +35,27 @@ class FileController {
     }
   }
 
-  async handleDelete(request: Request, response: Response) {
+  async handleList(request: Request, response: Response) {
+    const service = new FileService()
+
+    try {
+      await service.fileList(response)
+
+      return response
+    } catch (error) {
+      return response.json({ error: error.message })
+    }
+  }
+
+  handleDelete(request: Request, response: Response) {
     const { name }: FileProps = request.body
 
     const service = new FileService()
 
     try {
-      const deletedFile = await service.delete(name)
+      const deletedFile = service.delete(name)
 
-      return deletedFile
+      return response.json(deletedFile)
     } catch (error) {
       return response.json({ error: error.message })
     }
