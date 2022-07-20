@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { json, Response } from 'express'
 import {
   createWriteStream,
   createReadStream,
@@ -9,6 +9,7 @@ import {
 } from 'fs'
 import { Readable } from 'stream'
 import { join } from 'path'
+import { networkInterfaces } from 'os'
 
 class FileService {
   async upload(name: string, file: string) {
@@ -45,6 +46,10 @@ class FileService {
     const filePath = join(process.cwd(), 'tempFiles', name)
     unlinkSync(filePath)
     return true
+  }
+
+  getServerIp() {
+    return networkInterfaces()
   }
 }
 

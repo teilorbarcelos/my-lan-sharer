@@ -1,6 +1,7 @@
 import express from 'express'
 import { router } from './routes'
 import cors from 'cors'
+import { exec } from 'child_process'
 
 const app = express()
 
@@ -15,3 +16,5 @@ app.use(router)
 const port = process.env.PORT || 3300
 
 app.listen(port, () => console.log(`Server runing on http://localhost:${port}`))
+
+exec(`cd my-file-sharer/ && yarn start`)

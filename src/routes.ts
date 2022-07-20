@@ -16,5 +16,6 @@ router.post('/upload', new FileController().handleUpload)
 router.get('/download', new FileController().handleDownload)
 router.get('/files', new FileController().handleList)
 router.delete('/delete', new FileController().handleDelete)
+router.get('/local-ip', new FileController().getServerIp)
 
 export { router }

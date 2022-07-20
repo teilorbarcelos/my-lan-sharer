@@ -22,12 +22,12 @@ class FileController {
   }
 
   async handleDownload(request: Request, response: Response) {
-    const { fileName } = request.query
+    const { filename } = request.query
 
     const service = new FileService()
 
     try {
-      await service.download(String(fileName), response)
+      await service.download(String(filename), response)
 
       return response
     } catch (error) {
@@ -59,6 +59,12 @@ class FileController {
     } catch (error) {
       return response.json({ error: error.message })
     }
+  }
+
+  getServerIp(request: Request, response: Response) {
+    const service = new FileService()
+    const networkinfo = service.getServerIp()
+    return response.json(networkinfo)
   }
 }
 
